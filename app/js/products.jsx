@@ -25,12 +25,15 @@ var ProductTable = React.createClass({
         var rows = [];
         var lastCategory = null;
         this.props.products.forEach(function(product) {
+            if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
+                return;
+            }
             if (product.category !== lastCategory) {
                 rows.push(<ProductCategoryRow category={product.category} key={product.category} />);
             }
             rows.push(<ProductRow product={product} key={product.name} />);
             lastCategory = product.category;
-        });
+        }.bind(this));
         return (
             <table>
                 <thead>
@@ -49,9 +52,9 @@ var SearchBar = React.createClass({
     render: function() {
         return (
             <form>
-                <input type="text" placeholder="Search..." />
+                <input type="text" placeholder="Search..." value={this.props.filterText} />
                 <p>
-                    <input type="checkbox" />
+                    <input type="checkbox" checked={this.props.inStockOnly} />
                     {' '}
                     Only show products in stock
                 </p>
@@ -61,11 +64,25 @@ var SearchBar = React.createClass({
 });
 
 var FilterableProductTable = React.createClass({
+    getInitialState: function() {
+        return {
+            filterText: '',
+            inStockOnly: false
+        };
+    },
+
     render: function() {
         return (
             <div>
-                <SearchBar />
-                <ProductTable products={this.props.products} />
+                <SearchBar
+                    filterText={this.state.filterText}
+                    inStockOnly={this.state.inStockOnly}
+                />
+                <ProductTable
+                    products={this.props.products}
+                    filterText={this.state.filterText}
+                    inStockOnly={this.state.inStockOnly}
+                />
             </div>
         );
     }
@@ -80,5 +97,5 @@ var PRODUCTS = [
   {category: 'Electronics', price: '$399.99', stocked: false, name: 'iPhone 5'},
   {category: 'Electronics', price: '$199.99', stocked: true, name: 'Nexus 7'}
 ];
- 
+
 React.render(<FilterableProductTable products={PRODUCTS} />, document.body);
