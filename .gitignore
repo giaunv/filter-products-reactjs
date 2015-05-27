@@ -1,0 +1,5 @@
+# Package manager
+bower_components
+
+# OS
+.DS_Store

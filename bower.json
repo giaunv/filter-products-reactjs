@@ -1,0 +1,37 @@
+{
+  "name": "find-hotels-react",
+  "version": "0.0.0",
+  "authors": [
+    "Giau Ngo <giaunv@gmail.com>"
+  ],
+  "main": "app/scripts/hotels.js",
+  "moduleType": [
+    "amd"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "react": "~0.13.3",
+    "bootstrap": "~3.3.4"
+  },
+  "install": {
+    "base": "vendors",
+    "path": {
+      "js": "{name}/js",
+      "less": "{name}/js",
+      "css": "{name}/css",
+      "eot": "{name}/fonts",
+      "svg": "{name}/fonts",
+      "ttf": "{name}/fonts",
+      "woff": "{name}/fonts",
+      "woff2": "{name}/fonts"
+    }
+  }
+}
